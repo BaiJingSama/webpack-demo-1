@@ -1,9 +1,24 @@
-var path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
 
 module.exports = {
-    mode: 'production', //production 压缩模式 development 开发者模式
+    mode: 'development', //production 压缩模式 development 开发者模式
+    devtool: 'inline-source-map',
+    devServer: {
+        contentBase: './dist',
+    },
     entry: './src/index.js', //入口
     output: {
-        filename: '[name].[contenthash].js' //文件处理后的名字
-    }
+        filename: 'index.[contenthash].js' //文件处理后的名字
+    },
+    plugins: [new HtmlWebpackPlugin({
+        title: '白境第一课', //<%= htmlWebpackPlugin.options.title %>
+        template: 'src/assets/index.html'
+    })],
+    module: {
+        rules: [{
+            test: /\.css$/i,
+            use: ["style-loader", "css-loader"],
+        }, ],
+    },
 }
