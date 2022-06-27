@@ -11,5 +11,32 @@ module.exports = {
             title: '白境第一课', //<%= htmlWebpackPlugin.options.title %>
             template: 'src/assets/index.html'
         })
-    ]
+    ],
+    module: {
+        rules: [{
+                test: /\.styl$/,
+                loader: ['style-loader', 'css-loader', 'stylus-loader']
+            }, {
+                test: /\.(png|svg|jpg|gif)$/,
+                loader: ['file-loader']
+            },
+            {
+                test: /\.less$/,
+                loader: ['style-loader', 'css-loader', 'less-loader']
+            },
+            {
+                test: /\.scss$/i,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            implementation: require('dart-sass')
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 }
